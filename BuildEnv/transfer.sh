@@ -3,7 +3,6 @@
 # Target dir must be set everytime you move directories
 # We default to target dir on machine being equal to location where file's exist
 #
-local local_ip machine_name transfer_root_dir
 
 # Get 'session' variables from user if not set
 if [[ -z $MY_MACHINE_NAME ]]; then
@@ -60,9 +59,6 @@ copy_files(){
 }
 
 
-
-local target_dir
-local my_dir
 read -p "Enter dir to be copied from: " $my_dir
 read -p "Enter dir to be moved to: " $target_dir
 [[ ! -d $my_dir ]] && echo "Not a directory $my_dir" && exit 1
