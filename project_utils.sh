@@ -29,13 +29,20 @@ find_package(){
 
         is_root=$(is_project_root "$full_dir_name")
 
+
+        if [[ -z "$formatted_path" ]]; then 
+            formatted_path="$dir_name"
+        else
+            formatted_path="$dir_name.$formatted_path"
+        fi
+
+        full_dir_name="$(dirname "$full_dir_name")"
+        dir_name="$(basename "$full_dir_name")"
+
         if (( is_root == 0 )); then
             break
-        else
-            [[ -z "$formatted_path" ]] && formatted_path="$dir_name" || formatted_path="$dir_name.$formatted_path"
-            full_dir_name="$(dirname "$full_dir_name")"
-            dir_name="$(basename "$full_dir_name")"
         fi
+
         (( depth++ ))
         if [[ $depth == $max_depth ]]; then 
             exit 1

@@ -10,13 +10,14 @@
 # Arg 1: relative path to python file
 # Arg 2-n: arguments for python file
 
-source project_utils.sh
+SCRIPT_DIR="$PYTHON_VENVS/Scripts"
+source "$SCRIPT_DIR/project_utils.sh"
 current_dir="$(pwd)"
 # parse out file name, pretty sure I can use a one liner instead...
 while [[ $# -gt 0 ]]; do
     case $1 in
         *.py)
-            local file_arg="$1"
+            file_arg="$1"
             shift
             break
             ;;
@@ -26,13 +27,13 @@ while [[ $# -gt 0 ]]; do
 done
 # Account for relative paths
 if [[ $file_arg == */* ]]; then
-    local relative_move="${file_arg%/*}" 
+    relative_move="${file_arg%/*}" 
     [[ -n $relative_move ]] && cd "$relative_move" && echo "$relative_move"
 fi
 
 
-local file_name_no_extension="$(basename "$file_arg" .py)"
-local output="$(_find_package)"
+file_name_no_extension="$(basename "$file_arg" .py)"
+output="$(find_package)"
 
 read -r package_path_formatted package_path <<< "$output"
 

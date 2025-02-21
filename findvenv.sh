@@ -15,11 +15,8 @@ output="$(find_package)"
 [[ $? -eq 1 ]] && echo "Could not find package" && exit 1
 
 read -r package_path_formatted package_path <<< "$output"
-echo "$package_path"
-echo "$package_path_formatted"
 package_name="${package_path_formatted%%.*}"
 activate_path="$HOME/venvs/$package_name/bin/activate"
 [[ ! -e $activate_path ]] && echo "Venv $activate_path does not exist" && exit 1
-source $activate_path
+echo "$activate_path"
 exit 0
-
